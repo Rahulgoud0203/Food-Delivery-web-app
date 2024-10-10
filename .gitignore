@@ -1,0 +1,48 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Flask instance folder
+instance/
+
+# Flask settings
+*.env
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+eggs-info/
+lib/
+lib64/
+*.egg-info/
+
+# logs
+*.log
+
+# Test outputs
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+
