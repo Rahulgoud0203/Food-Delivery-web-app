@@ -1,4 +1,4 @@
-
+from datetime import datetime
 from Food_Delivery_App import db
 
 
@@ -11,12 +11,12 @@ class Restaurents(db.Model):
     img = db.Column(db.String(64), unique=True)
     
     # Relationship to the Menu model
-    menuitems = db.relationship('Menu', backref='restaurent', lazy=True)
+    menuitems = db.relationship('MenuItems', backref='restaurent', lazy=True)
     
     def __repr__(self):
         return f"id: {self.id}, restaurentname: {self.name}, address: {self.address}"
 
-
+'''
 class Menu(db.Model):
     __tablename__ = 'menu'  # Define the table name explicitly.
     
@@ -32,7 +32,7 @@ class Menu(db.Model):
     def __repr__(self):
         return f"name: {self.name}, price: {self.price}, desc: {self.des}"
 
-
+'''
 
 
 
@@ -41,20 +41,25 @@ class Profile(db.Model):
 
     first_name=db.Column(db.String(20),unique=False,nullable=False)
     last_name=db.Column(db.String(20),unique=False,nullable=False)
+    email=db.Column(db.String(30),unique=True,nullable=False)
+    password=db.Column(db.String(20),unique=True,nullable=False)
+    date_of_joined=db.Column(db.DateTime, default=datetime.utcnow)
     age=db.Column(db.Integer,nullable=False)
     img = db.Column(db.String(64),unique=True)
     
     def __repr__(self):
         return f"Name  : {self.first_name}bAge:{self.age}"
     
-class ProductItem(db.Model):
-     __tablename__='products'
+class MenuItems(db.Model):
+     __tablename__='menus'
      id = db.Column(db.Integer,primary_key=True)
      name = db.Column(db.String(64),unique=True)
      descr = db.Column(db.Text,unique=True,nullable=True)
      price = db.Column(db.Float,nullable=False)
      img = db.Column(db.String(64),unique=True)
-     cartitems = db.relationship('CartItem', backref='product')
+     rest_id = db.Column(db.Integer, db.ForeignKey('restaurents.id'), nullable=False)
+     cartitems = db.relationship('CartItem', backref='menu')
+     
      def _repr_(self):
          return '<ProductName %r>' % self.name
 
@@ -62,6 +67,6 @@ class CartItem(db.Model):
     __tablename__='cartitems'
     id = db.Column(db.Integer,primary_key=True)
     # adding the foreign key
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
     quantity=db.Column(db.Integer,nullable=False,default=1)
     
