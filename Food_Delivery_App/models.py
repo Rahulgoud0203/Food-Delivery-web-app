@@ -21,13 +21,18 @@ class Restaurents(db.Model):
 class Profile(db.Model,UserMixin):
     id=db.Column(db.Integer,primary_key=True)
 
-    first_name=db.Column(db.String(20),unique=False,nullable=False)
-    last_name=db.Column(db.String(20),unique=False,nullable=False)
+    name=db.Column(db.String(20),unique=False,nullable=False)
     email=db.Column(db.String(30),unique=True,nullable=False)
-    password=db.Column(db.String(20),unique=True,nullable=False)
+    password_hash=db.Column(db.String(20),unique=True,nullable=False)
     date_of_joined=db.Column(db.DateTime, default=datetime.utcnow)
     phone_no=db.Column(db.Integer,nullable=False)
     img = db.Column(db.String(64),unique=False)
+
+    def __init__(self, email, name, phone_no, img=None):
+        self.email = email
+        self.name = name
+        self.phone_no = phone_no
+        self.img = img
 
     def set_password(self, password):
         """Hash the password and store it."""
@@ -38,7 +43,7 @@ class Profile(db.Model,UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f"Name  : {self.first_name}bAge:{self.age}"
+        return f"Name  : {self.name}  email:{self.email}"
     
 class MenuItems(db.Model):
      __tablename__='menus'

@@ -1,92 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <ul>
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+
 <div class="row wrapper">
-    <div class="col-10 col-lg-5 registration-form">
-      <form class="shadow-lg" encType="multipart/form-data",methods="POST">
-        <h1 class="mb-3">Register</h1>
-        <div class="form-group">
-          <label htmlFor="name_field">Name</label>
-          <input
-            type="text"
-            id="name_field"
-            class="form-control"
-            name="name"
-            value="YourName"
-          ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="email_field">Email</label>
-          <input
-            type="email"
-            id="email_field"
-            class="form-control"
-            name="email"
-            value="abc@email.com"
-          ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="password_field">Password</label>
-          <input
-            type="password"
-            id="password_field"
-            class="form-control"
-            name="password"
-            value="12345678"
-          ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="passwordConfirm_field">Password Confirm</label>
-          <input
-            type="password"
-            id="passwordConfirm_field"
-            class="form-control"
-            name="passwordConfirm"
-            value="12345678"
-          ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="phoneNumber_field">Phone Number</label>
-          <input
-            type="number"
-            id="phoneNumber_field"
-            class="form-control"
-            name="phoneNumber"
-            value="91......"
-          ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="avatar_upload">Avatar</label>
-          <div class="d-flex align-items-center">
-            <div>
-              <figure class="avatar mr-3 item-rtl">
-                <img
-                  src="https://assets.onecompiler.app/42ejjj4uw/42s3vmxkp/AMP-44_61fb8b8840826_if4vz9.jpg"
-                  class="rounded-circle"
-                  alt="Avatar Preview"
-                />
-              </figure>
-            </div>
-            <div class="custom-file">
-              <input
-                type="file"
-                name="avatar"
-                class="custom-file-input"
-                id="customFile"
-                accept="images/*"
-              ></input>
-              <label class="custom-file-label" htmlFor="customFile">
-                Choose Avatar
-              </label>
-            </div>
+  <div class="col-10 col-lg-5 registration-form">
+    <form class="shadow-lg" enctype="multipart/form-data" method="POST">
+      <h1 class="mb-3">Register</h1>
+      
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name_field">Name</label>
+        <input
+          type="text"
+          id="name_field"
+          class="form-control"
+          name="name"
+          value="YourName"
+        />
+      </div>
+      
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email_field">Email</label>
+        <input
+          type="email"
+          id="email_field"
+          class="form-control"
+          name="email"
+          value="abc@email.com"
+        />
+      </div>
+      
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password_field">Password</label>
+        <input
+          type="password"
+          id="password_field"
+          class="form-control"
+          name="password"
+          value="12345678"
+        />
+      </div>
+
+      <!-- Password Confirm Field -->
+      <div class="form-group">
+        <label for="passwordConfirm_field">Password Confirm</label>
+        <input
+          type="password"
+          id="passwordConfirm_field"
+          class="form-control"
+          name="passwordConfirm"
+          value="12345678"
+        />
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="form-group">
+        <label for="phoneNumber_field">Phone Number</label>
+        <input
+          type="number"
+          id="phoneNumber_field"
+          class="form-control"
+          name="phoneNumber"
+          value="91......"
+        />
+      </div>
+
+      <!-- Avatar Upload Field -->
+      <div class="form-group">
+        <label for="avatar_upload">Avatar</label>
+        <div class="d-flex align-items-center">
+          <div>
+            <figure class="avatar mr-3 item-rtl">
+              <img
+                src="https://assets.onecompiler.app/42ejjj4uw/42s3vmxkp/AMP-44_61fb8b8840826_if4vz9.jpg"
+                class="rounded-circle"
+                alt="Avatar Preview"
+              />
+            </figure>
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              name="avatar"
+              class="custom-file-input"
+              id="customFile"
+              accept="image/*"
+            />
+            <label class="custom-file-label" for="customFile">Choose Avatar</label>
           </div>
         </div>
+      </div>
 
-        <button
-          id="register_button"
-          type="submit"
-          class="btn btn-block py-3"
-          disabled="False"
-        >
-          REGISTER
-        </button>
-      </form>
-    </div>
+      <!-- Register Button -->
+      <input
+        id="register_button"
+        type="submit"
+        class="btn btn-block py-3"
+        value="REGISTER"
+      />
+    </form>
   </div>
+</div>
+
+{%endblock%}
