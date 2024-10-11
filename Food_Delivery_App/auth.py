@@ -33,7 +33,7 @@ def login():
         if user and user.verify_password(password):  # Verify the password
             login_user(user)  # Log in the user
             flash('Login successful!', 'success')
-            return redirect(url_for('customers.index',))  # Redirect to a main page
+            return redirect(url_for('customers.rest',))  # Redirect to a main page
         else:
             flash('Login unsuccessful. Please check your email and password.', 'danger')
     

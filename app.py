@@ -4,7 +4,7 @@ from Food_Delivery_App import app
 
 @app.route('/')
 def index():
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('customers.rest'))
 
 if __name__=="__main__":
     app.run(debug=True)

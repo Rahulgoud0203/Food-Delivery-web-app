@@ -20,9 +20,9 @@ from Food_Delivery_App.customers.views import customers_bp
 from Food_Delivery_App.rest.views import rest_bp
 from Food_Delivery_App.auth import auth
 
-app.register_blueprint(customers_bp,url_prefix='/customers')
+app.register_blueprint(customers_bp,url_prefix='/')
 app.register_blueprint(rest_bp,url_prefix='/rest')
-app.register_blueprint(auth, url_prefix='/')
+app.register_blueprint(auth, url_prefix='/auth')
 
 
 

@@ -1,25 +1,36 @@
-<div class="row justify-content-around mt-5 user-info">
-    <div class="col-12 col-md-5 profile">
-      <div class="d-flex align-items-center mb-4">
-        <figure class="avatar avatar-profile text-center mr-3">
-          <img
-            class="rounded-circle figure-img img-fluid"
-            src="https://assets.onecompiler.app/42ejjj4uw/42s3vmxkp/images.png"
-            alt="Rahul"
-          />
-        </figure>
-        <span> Welcome Rahul</span>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 profile">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <figure class="avatar avatar-profile mb-4">
+            <img
+              class="rounded-circle figure-img img-fluid"
+              src="https://assets.onecompiler.app/42ejjj4uw/42s3vmxkp/images.png"
+              alt="Rahul"
+              style="width: 150px; height: 150px; object-fit: cover;"
+            />
+          </figure>
+          <h2 class="mb-3">Welcome, {{ profile.name }}!</h2>
+          <a id="edit_profile" class="btn btn-primary mb-4" style="width: 100%;">
+            Edit Profile
+          </a>
+
+          <h4 class="mt-4">Full Name:</h4>
+          <p class="text-muted">{{ profile.name }}</p>
+
+          <h4>Email Address:</h4>
+          <p class="text-muted">{{ profile.email }}</p>
+          <h4>phone_no:</h4>
+          <p class="text-muted">{{ profile.phone_no}}</p>
+
+          <h4>Joined On Date & Time:</h4>
+          <p class="text-muted">{{ profile.date_of_joined }}</p>
+        </div>
       </div>
-      <a id="edit_profile" class="btn btn-primary btn-block my-5">
-        Edit Profile
-      </a>
-      <h4>Full Name:</h4>
-      <p>perumandla Rahul</p>
-
-      <h4>Email Address</h4>
-      <p>rahulgoud697@gmail.com</p>
-
-      <h4>Joined On</h4>
-      <p>2024-09-26</p>
     </div>
   </div>
+</div>
+{% endblock %}

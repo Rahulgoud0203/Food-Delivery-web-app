@@ -42,7 +42,7 @@ body {
 }
 
 nav {
-  background-color: #056a3a;
+  background-color: rgb(176, 224, 230);
   padding: 1rem 1rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -65,13 +65,14 @@ nav {
 }
 
 #login_btn {
-  padding: 1.5rem 1.8rem;
+  padding: 0.2rem 0.5rem;
   font-family: calibri;
-  font-size: 2rem;
-  margin-top: -3%;
-
+  font-size: 1rem;
+  margin-top: +2%;
   color: white;
 }
+
+
 #login_btn:hover {
   background-color: rgb(243, 235, 223);
   color: rgb(8, 8, 8);
@@ -90,7 +91,7 @@ nav {
 }
 
 #cart_count {
-  background-color: rgb(243, 235, 223);
+  background-color: rgb(176, 224, 230);
   padding: 0.2rem 0.5rem;
   border-radius: 0.2rem;
   color: rgb(2, 2, 2);
@@ -406,7 +407,12 @@ footer {
   border-radius: 50%;
 }
 
-.avatar img {
+.avatar-profile {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto; /* Center the avatar */
+}
+  .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -636,13 +642,19 @@ a[data-toggle="collapse"] {
   position: relative;
 }
 
-.dropdown-toggle::after {
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
+
+
+.dropdown-toggle {
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  background-color: transparent; /* Makes background transparent */
 }
+
+.dropdown-toggle:focus {
+  box-shadow: none; /* Removes any box shadow on focus */
+}
+
+
 
 ul ul a {
   font-size: 1rem !important;
