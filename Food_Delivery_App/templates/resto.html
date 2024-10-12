@@ -20,11 +20,9 @@
         <div class="row">
             {% for rests in restaurents %}
             
-            
-            
             <!-- Adjust the column size for the card layout -->
             <div class="col-sm-6 col-md-4 col-lg-3 my-3">  <!-- Adjust column size as needed -->
-                <form action="{{ url_for('customers.menu', rest_id=rests.id) }}" method="POST">
+                <form action="{{ url_for('customers.menu',rest_id=rests.id)}}" method="POST">
                 <button class="btn w-100">  <!-- Ensure the button takes up full width -->
                     <div class="card p-3 rounded">
                         <img src="https://assets.onecompiler.app/42ejjj4uw/42s2jnwh5/images.jpeg" alt="{{ rests.name }}" class="card-img-top" />

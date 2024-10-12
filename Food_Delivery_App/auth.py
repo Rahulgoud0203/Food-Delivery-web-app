@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash,request
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from Food_Delivery_App.models import Profile,db
 from . import app
