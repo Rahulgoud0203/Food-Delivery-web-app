@@ -8,6 +8,7 @@ customers_bp=Blueprint('customers',__name__,static_folder='static',template_fold
 
 
 @customers_bp.route('/menu/<int:rest_id>',methods=['GET', 'POST'])
+@login_required
 def menu(rest_id):
     items=MenuItems.query.filter_by(rest_id=rest_id)
     carts=CartItem.query.all()
@@ -57,7 +58,7 @@ def rest():
 
 
 
-@customers_bp.route('/view_cart',methods=['POST'])
+@customers_bp.route('/view_cart',methods=['POST','GET'])
 @login_required
 def view_cart():
     cart_items = CartItem.query.all()
@@ -104,31 +105,34 @@ def add_to_cart(product_id):
     db.session.commit()
     
 
-@customers_bp.route('/update_cart/<int:product_id>', methods=['POST'])
-def update_cart(product_id):
-    cart_item = CartItem.query.filter_by(product_id=product_id).first_or_404()
-    
-    # Get the new quantity from the form
-    new_quantity = int(request.form.get('quantity', 1))
-    
-    if new_quantity > 0:
-        cart_item.quantity = new_quantity
+@customers_bp.route('/update_cart/<int:item_id>', methods=['POST'])
+@login_required
+def update_cart(item_id):
+    cart_item = CartItem.query.filter_by(product_id=item_id).first_or_404()
+    action = request.form.get('action')
+    if action == 'increase':
+        cart_item.quantity += 1
         db.session.commit()
-    else:
-        # If the quantity is less than 1, remove the item from the cart
+
+    elif action == 'decrease' and cart_item.quantity > 1:
+       cart_item.quantity -= 1
+       db.session.commit()
+    elif action =='decrease'and cart_item.quantity==1:
         db.session.delete(cart_item)
         db.session.commit()
 
-    return redirect(url_for('view_cart'))
+    return redirect(url_for('customers.view_cart'))
 
 
 @customers_bp.route('/cart/delete/<int:item_id>', methods=['POST'])
+@login_required
 def delete_cart_item(item_id):
     # Query the cart item using the provided ID
     cart_item = CartItem.query.get(item_id)
-    
-    if cart_item:
-        db.session.delete(cart_item)
-        db.session.commit()
-        return jsonify({'success': True, 'message': 'Item removed from cart.'})
-    return jsonify({'success': False, 'message': 'Item not found.'})
+    if request.method == 'POST':
+        if cart_item:
+
+            db.session.delete(cart_item)
+            db.session.commit()
+        return redirect(url_for('customers.view_cart'))
+    return redirect(url_for('customers.view_cart'))

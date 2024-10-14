@@ -29,19 +29,34 @@
                 <!-- Quantity Controls -->
                 <div class="col-4 col-lg-3 mt-4 mt-lg-0">
                     <div class="stockCounter d-inline">
-                        <span class="btn btn-danger minus">-</span>
-                        <input type="number" class="form-control count d-inline" value="{{ cart.quantity }}" readOnly />
-                        <span class="btn btn-primary plus">+</span>
+                        <form action="{{url_for('customers.update_cart',item_id=cart.cart_id)}}" method="POST" class="d-inline">
+                            <input type="hidden" name="action" value="decrease">
+                            <button type="submit" class="btn btn-danger">-</button>
+                        </form>
+                
+                        <!-- Display current quantity (could be rendered dynamically) -->
+                        
+                        <span class="quantity-display">{{ cart.quantity }}</span>
+                
+                        <!-- Plus button -->
+                        <form action="{{url_for('customers.update_cart',item_id=cart.cart_id)}}" method="POST" class="d-inline">
+                            <input type="hidden" name="action" value="increase">
+                            <button type="submit" class="btn btn-primary">+</button>
+                        </form>
                     </div>
                 </div>
-                <!-- Remove item from cart -->
-                <div class="col-4 col-lg-1 mt-4 mt-lg-0">
-                    <i id="delete_cart_item" class="fa fa-trash btn btn-danger delete-item" data-id="{{ cart.id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                        </svg>
-                    </i>
-                </div>
+                <!-- Remove i<tem from cart -->
+                    <form action="{{url_for('customers.delete_cart_item',item_id=cart.cart_id)}}" method="POST">
+                        <button type="submit" class="btn">
+                    <div class="col-4 col-lg-1 mt-4 mt-lg-0">
+                        <i id="delete_cart_item" class="fa fa-trash btn btn-danger delete-item" data-id="{{ cart.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                            </svg>
+                        </i>
+                    </div>
+                    </button>
+                    </form>
             </div>
             <hr />
         </div>
@@ -85,31 +100,3 @@
 </div>
 
 {% endblock %}
-
-<script>
-    $(document).ready(function() {
-        $('.delete-item').click(function() {
-            const itemId = $(this).data('id');  // Get the item ID from data attribute
-            
-            // Confirm deletion
-            if (confirm('Are you sure you want to remove this item from your cart?')) {
-                $.ajax({
-                    url: `/cart/delete/${itemId}`,  // Send a POST request to delete the item
-                    method: 'POST',
-                    success: function(response) {
-                        if (response.success) {
-                            // Optionally, you can remove the item from the DOM or refresh the cart
-                            alert(response.message);
-                            location.reload(); // Reload the page to update the cart view
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred while trying to delete the item.');
-                    }
-                });
-            }
-        });
-    });
-</script>
